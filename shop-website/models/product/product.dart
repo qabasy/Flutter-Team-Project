@@ -1,3 +1,7 @@
 // Ahmed
-class Product {}
-
+class Product {
+  // Getters
+  String getName() {
+    return "ProductNam";
+  }
+}
