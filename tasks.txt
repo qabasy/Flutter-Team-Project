@@ -1,0 +1,25 @@
+classes
+    Shop
+    Product
+        SoftGood
+        HardGood
+    Visitor
+    ShoppingCart
+
+Distr.
+    Ahmed:
+        class Product
+
+    Mahmoud:
+        class Visitor
+
+
+App fun.
+search by product name
+search by price
+
+
+
+main:
+    show products menu
+    
