@@ -1,24 +1,5 @@
 import 'dart:io';
 
-String formatMoney(final double value) {
-  return "\$${value.toStringAsFixed(2)}";
-}
-
-String formatText(final String value) {
-  return value.trim().toLowerCase();
-}
-
-double calculateDiscount(
-    {required double price,
-    required int quantity,
-    required double discountPercentage}) {
-  double totalPrice = price * quantity;
-  double discountAmount = totalPrice * (discountPercentage / 100);
-  double discountedPrice = totalPrice - discountAmount;
-
-  return discountedPrice / 100;
-}
-
 class Validation {
   bool validateEmail(String email) {
     return false;
@@ -45,41 +26,6 @@ void exit() {
 void write(String text, {final String pre = "", final String post = ""}) {
   stdout.write(pre + text + post);
 }
-
-/**Commas
- * every  1
- * 1,20,54,56
- * 
- * 10,203,456
- * 
- * 
- */
-String commas(final int number, {final int every = 3}) {
-  String result = "";
-  String text = number.toString();
-  final int commasCount = (text.length / every).ceil() - 1;
-
-  // Start from the leftmost digit and add commas
-  for (int x = 0; x <= commasCount * every; x += every) {
-    // Extract the chunk of digits (every group of 'every' digits)
-    String chunk = text.substring(x, x + every);
-
-    // Append the chunk to the result
-    result += chunk;
-
-    // Add a comma if this is not the last chunk
-    if (x + every < text.length) {
-      result += ",";
-    }
-  }
-
-  return result;
-}
-
-// void main() {
-//   print(commas(123456789)); // Output: 123,456,789
-//   print(commas(9876543210)); // Output: 9,876,543,210
-// }
 
 class BinaryTreeNode<T> {
   BinaryTreeNode(this.value, {this.leftChild, this.rightChild});

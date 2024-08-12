@@ -1,5 +1,5 @@
 // product.dart
-import '../package.dart';
+import 'package:shop_project/package/extension.dart';
 
 class Product {
   late String _name, _desc;
@@ -14,11 +14,11 @@ class Product {
     final double discount = 0,
     final int stock = 0,
   }) {
-    this._name = name;
-    this._price = price;
-    this._desc = desc;
-    this._discount = discount;
-    this._quantity = stock;
+    _name = name;
+    _price = price;
+    _desc = desc;
+    _discount = discount;
+    _quantity = stock;
   }
 
   // Static
@@ -37,70 +37,80 @@ class Product {
   }) {
     // var query = 0;
     var where = products.where((item) => true);
-    if (name != null)
+    if (name != null) {
       where = where.where(
-        (product) => product.getName().contains(formatText(name)),
+        (product) => product.getName().contains(name.toName()),
       );
+    }
 
-    if (desc != null)
+    if (desc != null) {
       where = where.where(
-        (product) => product.getDesc().contains(formatText(desc)),
+        (product) => product.getDesc().contains(desc.toName()),
       );
+    }
 
-    if (minPrice != null)
+    if (minPrice != null) {
       where = where.where(
         (product) => product.getPrice() >= minPrice,
       );
+    }
 
-    if (maxPrice != null)
+    if (maxPrice != null) {
       where = where.where(
         (product) => product.getPrice() <= maxPrice,
       );
+    }
 
-    if (minDiscount != null)
+    if (minDiscount != null) {
       where = where.where(
         (product) => product.getDiscount() >= minDiscount,
       );
+    }
 
-    if (maxDiscount != null)
+    if (maxDiscount != null) {
       where = where.where(
         (product) => product.getDiscount() <= maxDiscount,
       );
+    }
 
-    if (minQuantity != null)
+    if (minQuantity != null) {
       where = where.where(
         (product) => product.getStock() >= minQuantity,
       );
+    }
 
-    if (maxQuantity != null)
+    if (maxQuantity != null) {
       where = where.where(
         (product) => product.getStock() <= maxQuantity,
       );
+    }
 
-    if (minTotal != null)
+    if (minTotal != null) {
       where = where.where(
         (product) => product.totalAfterDiscount() >= minTotal,
       );
+    }
 
-    if (maxTotal != null)
+    if (maxTotal != null) {
       where = where.where(
         (product) => product.totalAfterDiscount() <= maxTotal,
       );
-    return (where.length > 0 ? where.toList() : []);
+    }
+    return (where.isNotEmpty ? where.toList() : []);
   }
 
   // Setters
   void setName(final String name) {
-    this._name = name.toLowerCase().trim();
+    _name = name.toName();
   }
 
   void setDesc(final String desc) {
-    this._desc = desc.toLowerCase().trim();
+    _desc = desc.toName();
   }
 
   void setPrice(final double price) {
     if (price > 0) {
-      this._price = price;
+      _price = price;
     } else {
       print("WARNING: PRICE VALUE MUST BE GREATER THAN 0");
     }
@@ -108,7 +118,7 @@ class Product {
 
   void setDiscount(final double discount) {
     if (discount > 0) {
-      this._discount = discount;
+      _discount = discount;
     } else {
       print("WARNING: DISCOUNT VALUE MUST BE GREATER THAN 0");
     }
@@ -116,7 +126,7 @@ class Product {
 
   void setQuantity(final int quantity) {
     if (quantity > 0) {
-      this._quantity = quantity;
+      _quantity = quantity;
     } else {
       print("WARNING: QUANTITY VALUE MUST BE GREATER THAN 0");
     }
@@ -124,23 +134,23 @@ class Product {
 
   // Getters
   String getName() {
-    return formatText(this._name);
+    return _name.toName();
   }
 
   String getDesc() {
-    return this._desc;
+    return _desc.toName();
   }
 
   double getPrice() {
-    return this._price;
+    return _price;
   }
 
   double getDiscount() {
-    return this._discount;
+    return _discount;
   }
 
   int getStock() {
-    return this._quantity;
+    return _quantity;
   }
 
   // Methods
@@ -153,23 +163,11 @@ class Product {
   }
 
   void show() {
-    print(toJson().toString());
+    print(toString());
   }
 
   @override
   String toString() {
-    return "Product(name=${getName()}, price=${formatMoney(getPrice())}, stock=${_quantity}, discount=%${getDiscount()}, total=${formatMoney(totalAfterDiscount())})";
-  }
-
-  Object toJson() {
-    // return "{name:${getName()}, price:${getPrice()}, stock:${getQuantity()}, discount:${getDiscount()}, total:${totalAfterDiscount()}}";
-    return {
-      "name": getName(),
-      "price": getPrice(),
-      "stock": getStock(),
-      "discount": getDiscount(),
-      "totalBeforeDiscount": totalBeforeDiscount(),
-      "total": totalAfterDiscount(),
-    };
+    return "Product(name=${getName()}, price=${getPrice().toMoney()}, stock=${getStock()}, discount=${getDiscount().toPercentage()}, total=${totalAfterDiscount().toMoney()})";
   }
 }

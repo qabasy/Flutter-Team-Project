@@ -9,13 +9,13 @@ class Website {
       name: "Phone",
       discount: 10,
       price: 5000,
-      stock: 100,
+      quantity: 100,
     ),
     Product(
       name: "Laptop",
       discount: 5,
       price: 20900,
-      stock: 210,
+      quantity: 210,
     ),
   ];
   late List<Visitor> _visitors = [

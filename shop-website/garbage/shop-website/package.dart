@@ -1,13 +1,5 @@
 import 'dart:io';
 
-String formatMoney(final double value) {
-  return "\$${value.toStringAsFixed(2)}";
-}
-
-String formatText(final String value) {
-  return value.trim().toLowerCase();
-}
-
 double calculateDiscount(
     {required double price,
     required int quantity,
